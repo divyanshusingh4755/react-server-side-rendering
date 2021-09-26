@@ -20,7 +20,7 @@ Component which we have to render on the server.
 
 import "babel-polyfill";
 import renderer from "./helpers/renderer";
-import express, { urlencoded } from "express";
+import express from "express";
 import { matchRoutes } from "react-router-config";
 import proxy from "express-http-proxy";
 import Routes from "./client/Routes";
@@ -31,7 +31,7 @@ const app = express();
 
 /*
 Set up proxy.It is used because any request level that will access
-domain / api will automatically sent to main urlencoded.This it used because
+domain / api will automatically sent to main url.This it used because
 we have sent our request from server to api, not from client to api.
 */
 

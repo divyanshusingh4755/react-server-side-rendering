@@ -213,7 +213,7 @@ var app = (0, _express2.default)();
 
 /*
 Set up proxy.It is used because any request level that will access
-domain / api will automatically sent to main urlencoded.This it used because
+domain / api will automatically sent to main url.This it used because
 we have sent our request from server to api, not from client to api.
 */
 
@@ -239,7 +239,7 @@ Component which we have to render on the server.
 
 app.use("/api", (0, _expressHttpProxy2.default)("http://react-ssr-api.herokuapp.com", {
     proxyReqOptDecorator: function proxyReqOptDecorator(opts) {
-        opts.header['x-forward-host'] = "localhost:3000";
+        opts.headers['x-forwarded-host'] = "localhost:3000";
         return opts;
     }
 }));
