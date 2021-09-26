@@ -20,16 +20,33 @@ Component which we have to render on the server.
 
 import "babel-polyfill";
 import renderer from "./helpers/renderer";
-import express from "express";
+import express, { urlencoded } from "express";
 import { matchRoutes } from "react-router-config";
+import proxy from "express-http-proxy";
 import Routes from "./client/Routes";
 import createStore from "./helpers/createStore";
 
 const app = express();
+
+
+/*
+Set up proxy.It is used because any request level that will access
+domain / api will automatically sent to main urlencoded.This it used because
+we have sent our request from server to api, not from client to api.
+*/
+
+app.use("/api", proxy("http://react-ssr-api.herokuapp.com", {
+    proxyReqOptDecorator(opts) {
+        opts.headers['x-forwarded-host'] = "localhost:3000";
+        return opts;
+    }
+}));
+
 app.use(express.static("public"));
 
 app.get("*", (req, res) => {
-    const store = createStore();
+    // Passing cookie to createStore.js with the help of req
+    const store = createStore(req);
 
     const promises = matchRoutes(Routes, req.path).map(({ route }) => {
         return route.loadData ? route.loadData(store) : null;
