@@ -617,7 +617,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 
 var bind = __webpack_require__(183);
-var isBuffer = __webpack_require__(467);
+var isBuffer = __webpack_require__(468);
 
 /*global toString:true*/
 
@@ -2969,6 +2969,41 @@ var fetchCurrentUsers = exports.fetchCurrentUsers = function fetchCurrentUsers()
 
         return function (_x4, _x5, _x6) {
             return _ref2.apply(this, arguments);
+        };
+    }();
+};
+
+var FETCH_ADMINS = exports.FETCH_ADMINS = "fetch_admins";
+var fetchAdmins = exports.fetchAdmins = function fetchAdmins() {
+    return function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(dispatch, getState, api) {
+            var res;
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                while (1) {
+                    switch (_context3.prev = _context3.next) {
+                        case 0:
+                            _context3.next = 2;
+                            return api.get("/admins");
+
+                        case 2:
+                            res = _context3.sent;
+
+
+                            dispatch({
+                                type: FETCH_ADMINS,
+                                payload: res
+                            });
+
+                        case 4:
+                        case "end":
+                            return _context3.stop();
+                    }
+                }
+            }, _callee3, undefined);
+        }));
+
+        return function (_x7, _x8, _x9) {
+            return _ref3.apply(this, arguments);
         };
     }();
 };
@@ -6106,7 +6141,7 @@ exports.default = matchPath;
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(21);
-var normalizeHeaderName = __webpack_require__(469);
+var normalizeHeaderName = __webpack_require__(470);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -8860,12 +8895,12 @@ module.exports = function bind(fn, thisArg) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(21);
-var settle = __webpack_require__(470);
-var buildURL = __webpack_require__(472);
-var parseHeaders = __webpack_require__(473);
-var isURLSameOrigin = __webpack_require__(474);
+var settle = __webpack_require__(471);
+var buildURL = __webpack_require__(473);
+var parseHeaders = __webpack_require__(474);
+var isURLSameOrigin = __webpack_require__(475);
 var createError = __webpack_require__(185);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(475);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(476);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -8962,7 +8997,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(476);
+      var cookies = __webpack_require__(477);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -9047,7 +9082,7 @@ module.exports = function xhrAdapter(config) {
 "use strict";
 
 
-var enhanceError = __webpack_require__(471);
+var enhanceError = __webpack_require__(472);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -9134,11 +9169,11 @@ var _Routes = __webpack_require__(455);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
-var _axios = __webpack_require__(465);
+var _axios = __webpack_require__(466);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _reducers = __webpack_require__(484);
+var _reducers = __webpack_require__(485);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -38321,6 +38356,14 @@ var _UsersListPage = __webpack_require__(464);
 
 var _UsersListPage2 = _interopRequireDefault(_UsersListPage);
 
+var _NotFoundPage = __webpack_require__(465);
+
+var _NotFoundPage2 = _interopRequireDefault(_NotFoundPage);
+
+var _AdminListPage = __webpack_require__(489);
+
+var _AdminListPage2 = _interopRequireDefault(_AdminListPage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = [_extends({}, _App2.default, {
@@ -38329,7 +38372,9 @@ exports.default = [_extends({}, _App2.default, {
         exact: true
     }), _extends({}, _UsersListPage2.default, {
         path: '/users'
-    })]
+    }), _extends({}, _AdminListPage2.default, {
+        path: '/admins'
+    }), _extends({}, _NotFoundPage2.default)]
 })];
 
 /***/ }),
@@ -39091,10 +39136,53 @@ exports.default = {
 /* 465 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(466);
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ We are using staticContext because. We are passing context from index.js
+ and passing context object to res.send(renderer). To get context as prop 
+ in notfoundpage we have pass is it as staticContext.
+
+ We are passing empty object in staticContext becuase our client side doesn't
+ know what staticContext means. To avoid this error on client side we are
+ passing staticContext as empty object.
+ */
+
+var NotFoundPage = function NotFoundPage(_ref) {
+  var _ref$staticContext = _ref.staticContext,
+      staticContext = _ref$staticContext === undefined ? {} : _ref$staticContext;
+
+  staticContext.notFound = true;
+  return _react2.default.createElement(
+    "h1",
+    null,
+    "Oops, route not found"
+  );
+};
+
+exports.default = {
+  component: NotFoundPage
+};
 
 /***/ }),
 /* 466 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(467);
+
+/***/ }),
+/* 467 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39102,7 +39190,7 @@ module.exports = __webpack_require__(466);
 
 var utils = __webpack_require__(21);
 var bind = __webpack_require__(183);
-var Axios = __webpack_require__(468);
+var Axios = __webpack_require__(469);
 var defaults = __webpack_require__(122);
 
 /**
@@ -39137,14 +39225,14 @@ axios.create = function create(instanceConfig) {
 
 // Expose Cancel & CancelToken
 axios.Cancel = __webpack_require__(187);
-axios.CancelToken = __webpack_require__(482);
+axios.CancelToken = __webpack_require__(483);
 axios.isCancel = __webpack_require__(186);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(483);
+axios.spread = __webpack_require__(484);
 
 module.exports = axios;
 
@@ -39153,7 +39241,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 467 */
+/* 468 */
 /***/ (function(module, exports) {
 
 /*!
@@ -39180,7 +39268,7 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 468 */
+/* 469 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39188,10 +39276,10 @@ function isSlowBuffer (obj) {
 
 var defaults = __webpack_require__(122);
 var utils = __webpack_require__(21);
-var InterceptorManager = __webpack_require__(477);
-var dispatchRequest = __webpack_require__(478);
-var isAbsoluteURL = __webpack_require__(480);
-var combineURLs = __webpack_require__(481);
+var InterceptorManager = __webpack_require__(478);
+var dispatchRequest = __webpack_require__(479);
+var isAbsoluteURL = __webpack_require__(481);
+var combineURLs = __webpack_require__(482);
 
 /**
  * Create a new instance of Axios
@@ -39273,7 +39361,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 469 */
+/* 470 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39292,7 +39380,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 470 */
+/* 471 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39325,7 +39413,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 471 */
+/* 472 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39353,7 +39441,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 472 */
+/* 473 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39428,7 +39516,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 473 */
+/* 474 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39472,7 +39560,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 474 */
+/* 475 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39547,7 +39635,7 @@ module.exports = (
 
 
 /***/ }),
-/* 475 */
+/* 476 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39590,7 +39678,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 476 */
+/* 477 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39650,7 +39738,7 @@ module.exports = (
 
 
 /***/ }),
-/* 477 */
+/* 478 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39709,14 +39797,14 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 478 */
+/* 479 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(21);
-var transformData = __webpack_require__(479);
+var transformData = __webpack_require__(480);
 var isCancel = __webpack_require__(186);
 var defaults = __webpack_require__(122);
 
@@ -39795,7 +39883,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 479 */
+/* 480 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39822,7 +39910,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 480 */
+/* 481 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39843,7 +39931,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 481 */
+/* 482 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39864,7 +39952,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 482 */
+/* 483 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39928,7 +40016,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 483 */
+/* 484 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39962,7 +40050,7 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 484 */
+/* 485 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -39974,25 +40062,32 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(117);
 
-var _authReducer = __webpack_require__(485);
+var _authReducer = __webpack_require__(486);
 
 var _authReducer2 = _interopRequireDefault(_authReducer);
 
-var _usersReducer = __webpack_require__(486);
+var _usersReducer = __webpack_require__(487);
 
 var _usersReducer2 = _interopRequireDefault(_usersReducer);
 
+var _adminReducer = __webpack_require__(488);
+
+var _adminReducer2 = _interopRequireDefault(_adminReducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Main root reducer page which is used to combine several reducers together.
 
 var rootReducers = (0, _redux.combineReducers)({
     users: _usersReducer2.default,
-    auth: _authReducer2.default
-}); // Main root reducer page which is used to combine several reducers together.
+    auth: _authReducer2.default,
+    admin: _adminReducer2.default
 
+});
 exports.default = rootReducers;
 
 /***/ }),
-/* 485 */
+/* 486 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40017,7 +40112,7 @@ exports.default = function () {
 var _actions = __webpack_require__(77);
 
 /***/ }),
-/* 486 */
+/* 487 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40043,6 +40138,122 @@ exports.default = function () {
    User reducer used to pass actions that is coming from action folder using
    dispatch method. It always have default state to avoid erros.
    */
+
+/***/ }),
+/* 488 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _actions = __webpack_require__(77);
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments[1];
+
+    switch (action.type) {
+        case _actions.FETCH_ADMINS:
+            return action.payload.data;
+        default:
+            return state;
+    }
+};
+
+/***/ }),
+/* 489 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(6);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(119);
+
+var _actions = __webpack_require__(77);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AdminListPage = function (_Component) {
+    _inherits(AdminListPage, _Component);
+
+    function AdminListPage() {
+        _classCallCheck(this, AdminListPage);
+
+        return _possibleConstructorReturn(this, (AdminListPage.__proto__ || Object.getPrototypeOf(AdminListPage)).apply(this, arguments));
+    }
+
+    _createClass(AdminListPage, [{
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.props.fetchAdmins();
+        }
+    }, {
+        key: "renderAdmins",
+        value: function renderAdmins() {
+            return this.props.admins.map(function (admin) {
+                return _react2.default.createElement(
+                    "li",
+                    { key: admin.id },
+                    admin.name
+                );
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                    "h3",
+                    null,
+                    "Protected List of Admins"
+                ),
+                _react2.default.createElement(
+                    "ul",
+                    null,
+                    this.renderAdmins()
+                )
+            );
+        }
+    }]);
+
+    return AdminListPage;
+}(_react.Component);
+
+function mapStateToProps(_ref) {
+    var admins = _ref.admins;
+
+    return { admins: admins };
+}
+
+exports.default = {
+    component: (0, _reactRedux.connect)(mapStateToProps, { fetchAdmins: _actions.fetchAdmins })(AdminListPage),
+    loadData: function loadData(_ref2) {
+        var dispatch = _ref2.dispatch;
+        return dispatch((0, _actions.fetchAdmins)());
+    }
+};
 
 /***/ })
 /******/ ]);
