@@ -71,63 +71,6 @@ module.exports = require("react");
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-router-config");
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /*
-                                                                                                                                                                                                                                                                  Below are the routes json for using it react router config. We are using
-                                                                                                                                                                                                                                                                  react router config to use route functionality. This is done because we
-                                                                                                                                                                                                                                                                  are using server side rendering and we want our routes to work for server
-                                                                                                                                                                                                                                                                  side too. 
-                                                                                                                                                                                                                                                                   */
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _App = __webpack_require__(11);
-
-var _App2 = _interopRequireDefault(_App);
-
-var _HomePage = __webpack_require__(14);
-
-var _HomePage2 = _interopRequireDefault(_HomePage);
-
-var _UsersListPage = __webpack_require__(15);
-
-var _UsersListPage2 = _interopRequireDefault(_UsersListPage);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = [_extends({}, _App2.default, {
-    routes: [_extends({}, _HomePage2.default, {
-        path: '/',
-        exact: true
-    }), _extends({}, _UsersListPage2.default, {
-        path: '/users'
-    })]
-})];
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -212,6 +155,63 @@ var fetchCurrentUsers = exports.fetchCurrentUsers = function fetchCurrentUsers()
 };
 
 /***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-router-config");
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /*
+                                                                                                                                                                                                                                                                  Below are the routes json for using it react router config. We are using
+                                                                                                                                                                                                                                                                  react router config to use route functionality. This is done because we
+                                                                                                                                                                                                                                                                  are using server side rendering and we want our routes to work for server
+                                                                                                                                                                                                                                                                  side too. 
+                                                                                                                                                                                                                                                                   */
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _App = __webpack_require__(11);
+
+var _App2 = _interopRequireDefault(_App);
+
+var _HomePage = __webpack_require__(14);
+
+var _HomePage2 = _interopRequireDefault(_HomePage);
+
+var _UsersListPage = __webpack_require__(15);
+
+var _UsersListPage2 = _interopRequireDefault(_UsersListPage);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = [_extends({}, _App2.default, {
+    routes: [_extends({}, _HomePage2.default, {
+        path: '/',
+        exact: true
+    }), _extends({}, _UsersListPage2.default, {
+        path: '/users'
+    })]
+})];
+
+/***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
@@ -234,13 +234,13 @@ var _express = __webpack_require__(17);
 
 var _express2 = _interopRequireDefault(_express);
 
-var _reactRouterConfig = __webpack_require__(1);
+var _reactRouterConfig = __webpack_require__(2);
 
 var _expressHttpProxy = __webpack_require__(18);
 
 var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
-var _Routes = __webpack_require__(2);
+var _Routes = __webpack_require__(4);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
@@ -331,13 +331,13 @@ var _server = __webpack_require__(9);
 
 var _reactRouter = __webpack_require__(10);
 
-var _Routes = __webpack_require__(2);
+var _Routes = __webpack_require__(4);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
 var _reactRedux = __webpack_require__(3);
 
-var _reactRouterConfig = __webpack_require__(1);
+var _reactRouterConfig = __webpack_require__(2);
 
 var _serializeJavascript = __webpack_require__(16);
 
@@ -360,7 +360,7 @@ exports.default = function (req, store) {
         )
     ));
 
-    return "\n    <html>\n    <head></head>\n    <body>\n    <div id=\"root\">" + content + "</div>\n    <script>\n    window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "\n    </script>\n    <script src=\"bundle.js\"></script>\n    </body>\n    </html>\n    ";
+    return "\n    <html>\n    <head>\n    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css\">\n    </head>\n    <body>\n    <div id=\"root\">" + content + "</div>\n    <script>\n    window.INITIAL_STATE = " + (0, _serializeJavascript2.default)(store.getState()) + "\n    </script>\n    <script src=\"bundle.js\"></script>\n    </body>\n    </html>\n    ";
 }; /*
    1. This is main file for rendering our data on server side. We are using
    StaticRouter because in server side routing is possible using static router
@@ -402,13 +402,13 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterConfig = __webpack_require__(1);
+var _reactRouterConfig = __webpack_require__(2);
 
 var _Header = __webpack_require__(12);
 
 var _Header2 = _interopRequireDefault(_Header);
 
-var _actions = __webpack_require__(4);
+var _actions = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -480,27 +480,43 @@ var Header = function Header(_ref) {
     );
 
     return _react2.default.createElement(
-        "div",
-        null,
-        _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: "/" },
-            "React SSR"
-        ),
+        "nav",
+        { className: "nav-wrapper" },
         _react2.default.createElement(
             "div",
             null,
             _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: "/users" },
-                "Users"
+                { to: "/", className: "brand-logo" },
+                "React SSR"
             ),
             _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: "/admins" },
-                "Admins"
-            ),
-            authButton
+                "ul",
+                { className: "right" },
+                _react2.default.createElement(
+                    "li",
+                    null,
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: "/users" },
+                        "Users"
+                    )
+                ),
+                _react2.default.createElement(
+                    "li",
+                    null,
+                    _react2.default.createElement(
+                        _reactRouterDom.Link,
+                        { to: "/admins" },
+                        "Admins"
+                    )
+                ),
+                _react2.default.createElement(
+                    "li",
+                    null,
+                    authButton
+                )
+            )
         )
     );
 };
@@ -539,18 +555,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Home = function Home() {
     return _react2.default.createElement(
         "div",
-        null,
+        { className: "center-align", style: { marginTop: "200px" } },
         _react2.default.createElement(
-            "div",
+            "h3",
             null,
-            "I am the home component"
+            "Welcome"
         ),
         _react2.default.createElement(
-            "button",
-            { onClick: function onClick() {
-                    return console.log("I am clicked");
-                } },
-            "Click Me"
+            "p",
+            null,
+            "Checkout these awesome features"
         )
     );
 };
@@ -587,7 +601,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(3);
 
-var _actions = __webpack_require__(4);
+var _actions = __webpack_require__(1);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -708,7 +722,7 @@ var _reducers = __webpack_require__(21);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
-var _axios = __webpack_require__(23);
+var _axios = __webpack_require__(24);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -749,11 +763,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _redux = __webpack_require__(5);
 
-var _authReducer = __webpack_require__(24);
+var _authReducer = __webpack_require__(22);
 
 var _authReducer2 = _interopRequireDefault(_authReducer);
 
-var _usersReducer = __webpack_require__(22);
+var _usersReducer = __webpack_require__(23);
 
 var _usersReducer2 = _interopRequireDefault(_usersReducer);
 
@@ -777,7 +791,32 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _actions = __webpack_require__(4);
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case _actions.FETCH_CURRENT_USER:
+            return action.payload.data || false;
+        default:
+            return state;
+    }
+};
+
+var _actions = __webpack_require__(1);
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _actions = __webpack_require__(1);
 
 exports.default = function () {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -795,35 +834,10 @@ exports.default = function () {
    */
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("axios");
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-exports.default = function () {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    var action = arguments[1];
-
-    switch (action.type) {
-        case _actions.FETCH_CURRENT_USER:
-            return action.payload.data || false;
-        default:
-            return state;
-    }
-};
-
-var _actions = __webpack_require__(4);
 
 /***/ })
 /******/ ]);
