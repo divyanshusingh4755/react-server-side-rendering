@@ -2,7 +2,7 @@
 1. This is main file for rendering our data on server side. We are using
 StaticRouter because in server side routing is possible using static router
 only.
-2. In this we are passing location for accessing the path of the compoent.
+2. In this we are passing location for accessing the path of the component.
 3. we are also using renderRoutes from react router config. This is much
 different than react router. It's used because we want to use navigation
 from server side.
